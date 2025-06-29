@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reel aleatorio de Instagram</title>
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Reel aleatorio del día 🎥</h2>
+  <div id="insta-container"></div>
+
+  <script>
+    const reels = [
+      "https://www.instagram.com/reel/DG1vqXZuVbF/",
+      "https://www.instagram.com/reel/DGbYwawOk3v/"
+    ];
+
+    const randomReel = reels[Math.floor(Math.random() * reels.length)];
+    const container = document.getElementById('insta-container');
+
+    container.innerHTML = `
+      <blockquote class="instagram-media" data-instgrm-permalink="${randomReel}" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
+    `;
+
+    window.onload = () => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    };
+  </script>
+</body>
+</html>
