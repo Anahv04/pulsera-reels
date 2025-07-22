@@ -2,68 +2,49 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reel aleatorio de Instagram</title>
+  <script async src="https://www.instagram.com/embed.js"></script>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      padding: 40px;
-      background-color: #fafafa;
-    }
-    h2 {
-      font-size: 1.5rem;
-    }
-    .loader {
-      margin-top: 30px;
-      border: 6px solid #eee;
-      border-top: 6px solid #3897f0;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .msg {
-      margin-top: 20px;
-      color: #555;
+      padding: 30px;
     }
   </style>
 </head>
 <body>
-  <h2>Abriendo un reel de Instagram... 📲</h2>
-  <div class="loader"></div>
-  <p class="msg">Si no se abre automáticamente, espera unos segundos...</p>
+  <h2>Reel aleatorio del día 🎥</h2>
+  <div id="insta-container"></div>
 
   <script>
-    const reelUrls = [
-      "DG1vqXZuVbF",
-      "DGbYwawOk3v",
-      "DFOcx_eMT9_",
-      "DGEBObUs41B",
-      "C-XjBPqhrVO",
-      "C-XplzIM1lR",
-      "CnrRr14BW6U",
-      "CsT2QoINOOk",
-      "C7jcL_GREzr"
-    ];
+    const reels = [
+      "https://www.instagram.com/reel/DG1vqXZuVbF/?igsh=MXJveGZqMHFtcHR2aQ=",
+      "https://www.instagram.com/reel/DGbYwawOk3v/",
+      "https://www.instagram.com/reel/DFOcx_eMT9_/?igsh=bTd4NmwyYmN6Ymd1",
+      "https://www.instagram.com/reel/DGEBObUs41B/?igsh=MWxteDhnbmM3N3hiMA==",
+      "https://www.instagram.com/reel/C-XjBPqhrVO/?igsh=dnA3aHEwb25nOWcx",
+      "https://www.instagram.com/reel/C-XplzIM1lR/?igsh=MXJqZ2Jpem8xNHN4aA==",
+      "https://www.instagram.com/reel/CnrRr14BW6U/?igsh=MWV2cnhzajg2bW52Zw==",
+      "https://www.instagram.com/reel/CsT2QoINOOk/?igsh=cGM1djl5eXZtM3Js",
+      "https://www.instagram.com/reel/C7jcL_GREzr/?igsh=MTZyY3E1cjVoeGN4eA==",
+    "https://www.instagram.com/reel/CxoOxeVPscu/?igsh=NHQ5NWtma3gwMnE4",
+      "https://www.instagram.com/reel/C7jcL_GREzr/?igsh=MTZyY3E1cjVoeGN4eA==",
+"https://www.instagram.com/reel/DLVWdGmSlDz/?igsh=MWFtZDNhZnF4a2Rzdw==",
+      "https://www.instagram.com/reel/C_MOhSjOAPM/?igsh=MWhmdTgzb2o0a3JwOQ=="  
+     ];
 
-    const randomReel = reelUrls[Math.floor(Math.random() * reelUrls.length)];
-    const instaAppLink = `instagram://reel/${randomReel}`;
-    const instaWebLink = `https://www.instagram.com/reel/${randomReel}/`;
+    const randomReel = reels[Math.floor(Math.random() * reels.length)];
+    const container = document.getElementById('insta-container');
 
-    // Intenta abrir la app de Instagram
-    window.location = instaAppLink;
+    container.innerHTML = `
+      <blockquote class="instagram-media" data-instgrm-permalink="${randomReel}" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
+    `;
 
-    // Si falla, redirige a la web después de 2 segundos
-    setTimeout(() => {
-      window.location = instaWebLink;
-    }, 2000);
+    window.onload = () => {
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+      }
+    };
   </script>
 </body>
 </html>
