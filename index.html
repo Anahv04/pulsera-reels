@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Reel aleatorio de Instagram</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <script async src="https://www.instagram.com/embed.js"></script>
   <style>
     body {
@@ -27,24 +30,42 @@
       "https://www.instagram.com/reel/CnrRr14BW6U/?igsh=MWV2cnhzajg2bW52Zw==",
       "https://www.instagram.com/reel/CsT2QoINOOk/?igsh=cGM1djl5eXZtM3Js",
       "https://www.instagram.com/reel/C7jcL_GREzr/?igsh=MTZyY3E1cjVoeGN4eA==",
-    "https://www.instagram.com/reel/CxoOxeVPscu/?igsh=NHQ5NWtma3gwMnE4",
-      "https://www.instagram.com/reel/C7jcL_GREzr/?igsh=MTZyY3E1cjVoeGN4eA==",
-"https://www.instagram.com/reel/DLVWdGmSlDz/?igsh=MWFtZDNhZnF4a2Rzdw==",
+      "https://www.instagram.com/reel/CxoOxeVPscu/?igsh=NHQ5NWtma3gwMnE4",
+      "https://www.instagram.com/reel/DLVWdGmSlDz/?igsh=MWFtZDNhZnF4a2Rzdw==",
       "https://www.instagram.com/reel/C_MOhSjOAPM/?igsh=MWhmdTgzb2o0a3JwOQ=="  
-     ];
+    ];
 
-    const randomReel = reels[Math.floor(Math.random() * reels.length)];
-    const container = document.getElementById('insta-container');
+    let lastReel = null;
 
-    container.innerHTML = `
-      <blockquote class="instagram-media" data-instgrm-permalink="${randomReel}" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
-    `;
+    function getRandomReel() {
+      let reel;
+      do {
+        reel = reels[Math.floor(Math.random() * reels.length)];
+      } while (reel === lastReel);
+      lastReel = reel;
+      return reel;
+    }
 
-    window.onload = () => {
+    function showRandomReel() {
+      const container = document.getElementById('insta-container');
+      const randomReel = getRandomReel();
+
+      container.innerHTML = `
+        <blockquote class="instagram-media"
+                    data-instgrm-permalink="${randomReel}"
+                    data-instgrm-version="14"
+                    style="width:100%; max-width:540px; margin:auto;">
+        </blockquote>
+      `;
+
       if (window.instgrm) {
         window.instgrm.Embeds.process();
       }
-    };
+    }
+
+    // Ejecutar al cargar
+    window.onload = showRandomReel;
   </script>
 </body>
 </html>
+
